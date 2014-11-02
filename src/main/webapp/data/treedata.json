@@ -1,0 +1,528 @@
+{
+    "treedata": [{
+        "label": "meteo",
+        "data": {
+            "description": "meteo",
+            "isLeaf": false
+        },
+        "children": [{
+            "label": "dict",
+            "data": {
+                "description": "dict",
+                "isLeaf": false
+            },
+            "children": [{
+                "label": "v_country",
+                "data": {
+                    "rid": "meteo.dict.v_country",
+                    "description": "v_country",
+                    "isLeaf": true
+                }
+            }, {
+                "label": "v_country_geo",
+                "data": {
+                    "rid": "meteo.dict.v_country_geo",
+                    "description": "v_country_geo",
+                    "isLeaf": true
+                }
+            }, {
+                "label": "v_forecast_code",
+                "data": {
+                    "rid": "meteo.dict.v_forecast_code",
+                    "description": "v_forecast_code",
+                    "isLeaf": true
+                }
+            }, {
+                "label": "v_meteo_index",
+                "data": {
+                    "rid": "meteo.dict.v_meteo_index",
+                    "description": "v_meteo_index",
+                    "isLeaf": true
+                }
+            }, {
+                "label": "v_region",
+                "data": {
+                    "rid": "meteo.dict.v_region",
+                    "description": "v_region",
+                    "isLeaf": true
+                }
+            }, {
+                "label": "v_station",
+                "data": {
+                    "rid": "meteo.dict.v_station",
+                    "description": "v_station",
+                    "isLeaf": true
+                }
+            }, {
+                "label": "v_station_cn",
+                "data": {
+                    "rid": "meteo.dict.v_station_cn",
+                    "description": "v_station_cn",
+                    "isLeaf": true
+                }
+            }, {
+                "label": "v_station_focn",
+                "data": {
+                    "rid": "meteo.dict.v_station_focn",
+                    "description": "v_station_focn",
+                    "isLeaf": true
+                }
+            }, {
+                "label": "v_station_focn_district",
+                "data": {
+                    "rid": "meteo.dict.v_station_focn_district",
+                    "description": "v_station_focn_district",
+                    "isLeaf": true
+                }
+            }, {
+                "label": "v_station_grade4gis",
+                "data": {
+                    "rid": "meteo.dict.v_station_grade4gis",
+                    "description": "v_station_grade4gis",
+                    "isLeaf": true
+                }
+            }, {
+                "label": "v_station_openable",
+                "data": {
+                    "rid": "meteo.dict.v_station_openable",
+                    "description": "v_station_openable",
+                    "isLeaf": true
+                }
+            }, {
+                "label": "v_station_openable2",
+                "data": {
+                    "rid": "meteo.dict.v_station_openable2",
+                    "description": "v_station_openable2",
+                    "isLeaf": true
+                }
+            }, {
+                "label": "v_station_openable_4tygis",
+                "data": {
+                    "rid": "meteo.dict.v_station_openable_4tygis",
+                    "description": "v_station_openable_4tygis",
+                    "isLeaf": true
+                }
+            }, {
+                "label": "v_station_pm",
+                "data": {
+                    "rid": "meteo.dict.v_station_pm",
+                    "description": "v_station_pm",
+                    "isLeaf": true
+                }
+            }, {
+                "label": "v_territory",
+                "data": {
+                    "rid": "meteo.dict.v_territory",
+                    "description": "v_territory",
+                    "isLeaf": true
+                }
+            }, {
+                "label": "v_typhoon_name",
+                "data": {
+                    "rid": "meteo.dict.v_typhoon_name",
+                    "description": "v_typhoon_name",
+                    "isLeaf": true
+                }
+            }, {
+                "label": "v_warning_signal",
+                "data": {
+                    "rid": "meteo.dict.v_warning_signal",
+                    "description": "v_warning_signal",
+                    "isLeaf": true
+                }
+            }, {
+                "label": "v_weather_report_ww",
+                "data": {
+                    "rid": "meteo.dict.v_weather_report_ww",
+                    "description": "v_weather_report_ww",
+                    "isLeaf": true
+                }
+            }]
+        }, {
+            "label": "v_aws_day",
+            "data": {
+                "rid": "meteo.v_aws_day",
+                "description": "v_aws_day",
+                "isLeaf": true
+            }
+        }, {
+            "label": "v_aws_hour",
+            "data": {
+                "rid": "meteo.v_aws_hour",
+                "description": "v_aws_hour",
+                "isLeaf": true
+            }
+        }, {
+            "label": "v_aws_instant",
+            "data": {
+                "rid": "meteo.v_aws_instant",
+                "description": "v_aws_instant",
+                "isLeaf": true
+            }
+        }, {
+            "label": "v_aws_instant_base",
+            "data": {
+                "rid": "meteo.v_aws_instant_base",
+                "description": "v_aws_instant_base",
+                "isLeaf": true
+            }
+        }, {
+            "label": "v_aws_instant_for_view",
+            "data": {
+                "rid": "meteo.v_aws_instant_for_view",
+                "description": "v_aws_instant_for_view",
+                "isLeaf": true
+            }
+        }, {
+            "label": "v_aws_min",
+            "data": {
+                "rid": "meteo.v_aws_min",
+                "description": "v_aws_min",
+                "isLeaf": true
+            }
+        }, {
+            "label": "v_forecast_2008",
+            "data": {
+                "rid": "meteo.v_forecast_2008",
+                "description": "v_forecast_2008",
+                "isLeaf": true
+            }
+        }, {
+            "label": "v_forecast_2008_item",
+            "data": {
+                "rid": "meteo.v_forecast_2008_item",
+                "description": "v_forecast_2008_item",
+                "isLeaf": true
+            }
+        }, {
+            "label": "v_surface_day",
+            "data": {
+                "rid": "meteo.v_surface_day",
+                "description": "v_surface_day",
+                "isLeaf": true
+            }
+        }, {
+            "label": "v_surface_day_all",
+            "data": {
+                "rid": "meteo.v_surface_day_all",
+                "description": "v_surface_day_all",
+                "isLeaf": true
+            }
+        }, {
+            "label": "v_surface_day_t",
+            "data": {
+                "rid": "meteo.v_surface_day_t",
+                "description": "v_surface_day_t",
+                "isLeaf": true
+            }
+        }, {
+            "label": "v_surface_day_tg",
+            "data": {
+                "rid": "meteo.v_surface_day_tg",
+                "description": "v_surface_day_tg",
+                "isLeaf": true
+            }
+        }, {
+            "label": "v_surface_instant",
+            "data": {
+                "rid": "meteo.v_surface_instant",
+                "description": "v_surface_instant",
+                "isLeaf": true
+            }
+        }, {
+            "label": "v_surface_instant_base",
+            "data": {
+                "rid": "meteo.v_surface_instant_base",
+                "description": "v_surface_instant_base",
+                "isLeaf": true
+            }
+        }, {
+            "label": "v_surface_instant_misc",
+            "data": {
+                "rid": "meteo.v_surface_instant_misc",
+                "description": "v_surface_instant_misc",
+                "isLeaf": true
+            }
+        }, {
+            "label": "v_surface_instant_tg",
+            "data": {
+                "rid": "meteo.v_surface_instant_tg",
+                "description": "v_surface_instant_tg",
+                "isLeaf": true
+            }
+        }, {
+            "label": "v_surface_r",
+            "data": {
+                "rid": "meteo.v_surface_r",
+                "description": "v_surface_r",
+                "isLeaf": true
+            }
+        }, {
+            "label": "v_surface_ws",
+            "data": {
+                "rid": "meteo.v_surface_ws",
+                "description": "v_surface_ws",
+                "isLeaf": true
+            }
+        }, {
+            "label": "v_surfro_instant",
+            "data": {
+                "rid": "meteo.v_surfro_instant",
+                "description": "v_surfro_instant",
+                "isLeaf": true
+            }
+        }, {
+            "label": "v_typhoon",
+            "data": {
+                "rid": "meteo.v_typhoon",
+                "description": "v_typhoon",
+                "isLeaf": true
+            }
+        }, {
+            "label": "v_typhoon_bj",
+            "data": {
+                "rid": "meteo.v_typhoon_bj",
+                "description": "v_typhoon_bj",
+                "isLeaf": true
+            }
+        }, {
+            "label": "v_upper_cloud",
+            "data": {
+                "rid": "meteo.v_upper_cloud",
+                "description": "v_upper_cloud",
+                "isLeaf": true
+            }
+        }, {
+            "label": "v_upper_index",
+            "data": {
+                "rid": "meteo.v_upper_index",
+                "description": "v_upper_index",
+                "isLeaf": true
+            }
+        }, {
+            "label": "v_upper_iux_location",
+            "data": {
+                "rid": "meteo.v_upper_iux_location",
+                "description": "v_upper_iux_location",
+                "isLeaf": true
+            }
+        }, {
+            "label": "v_upper_sign_level",
+            "data": {
+                "rid": "meteo.v_upper_sign_level",
+                "description": "v_upper_sign_level",
+                "isLeaf": true
+            }
+        }, {
+            "label": "v_upper_spec_level",
+            "data": {
+                "rid": "meteo.v_upper_spec_level",
+                "description": "v_upper_spec_level",
+                "isLeaf": true
+            }
+        }, {
+            "label": "v_upper_std_isob",
+            "data": {
+                "rid": "meteo.v_upper_std_isob",
+                "description": "v_upper_std_isob",
+                "isLeaf": true
+            }
+        }, {
+            "label": "v_weather_warning",
+            "data": {
+                "rid": "meteo.v_weather_warning",
+                "description": "v_weather_warning",
+                "isLeaf": true
+            }
+        }, {
+            "label": "v_zaws_hour",
+            "data": {
+                "rid": "meteo.v_zaws_hour",
+                "description": "v_zaws_hour",
+                "isLeaf": true
+            }
+        }, {
+            "label": "v_zaws_hour_f",
+            "data": {
+                "rid": "meteo.v_zaws_hour_f",
+                "description": "v_zaws_hour_f",
+                "isLeaf": true
+            }
+        }, {
+            "label": "v_zaws_instant",
+            "data": {
+                "rid": "meteo.v_zaws_instant",
+                "description": "v_zaws_instant",
+                "isLeaf": true
+            }
+        }, {
+            "label": "v_zaws_instant_f",
+            "data": {
+                "rid": "meteo.v_zaws_instant_f",
+                "description": "v_zaws_instant_f",
+                "isLeaf": true
+            }
+        }, {
+            "label": "v_zsurf_hour",
+            "data": {
+                "rid": "meteo.v_zsurf_hour",
+                "description": "v_zsurf_hour",
+                "isLeaf": true
+            }
+        }, {
+            "label": "v_zsurf_hour_f",
+            "data": {
+                "rid": "meteo.v_zsurf_hour_f",
+                "description": "v_zsurf_hour_f",
+                "isLeaf": true
+            }
+        }, {
+            "label": "v_zsurf_instant",
+            "data": {
+                "rid": "meteo.v_zsurf_instant",
+                "description": "v_zsurf_instant",
+                "isLeaf": true
+            }
+        }, {
+            "label": "v_zsurf_instant_f",
+            "data": {
+                "rid": "meteo.v_zsurf_instant_f",
+                "description": "v_zsurf_instant_f",
+                "isLeaf": true
+            }
+        }, {
+            "label": "v_zsurf_min",
+            "data": {
+                "rid": "meteo.v_zsurf_min",
+                "description": "v_zsurf_min",
+                "isLeaf": true
+            }
+        }, {
+            "label": "v_zsurf_min_f",
+            "data": {
+                "rid": "meteo.v_zsurf_min_f",
+                "description": "v_zsurf_min_f",
+                "isLeaf": true
+            }
+        }, {
+            "label": "v_zsurfro",
+            "data": {
+                "rid": "meteo.v_zsurfro",
+                "description": "v_zsurfro",
+                "isLeaf": true
+            }
+        }, {
+            "label": "v_zsurfro_f",
+            "data": {
+                "rid": "meteo.v_zsurfro_f",
+                "description": "v_zsurfro_f",
+                "isLeaf": true
+            }
+        }]
+    }, {
+        "label": "mll",
+        "data": {
+            "description": "mll",
+            "isLeaf": false
+        },
+        "children": [{
+            "label": "nh_r1",
+            "data": {
+                "rid": "mll.nh_r1",
+                "description": "nh_r1",
+                "isLeaf": true
+            }
+        }, {
+            "label": "nh_r12",
+            "data": {
+                "rid": "mll.nh_r12",
+                "description": "nh_r12",
+                "isLeaf": true
+            }
+        }, {
+            "label": "nh_r12_plot",
+            "data": {
+                "rid": "mll.nh_r12_plot",
+                "description": "nh_r12_plot",
+                "isLeaf": true
+            }
+        }, {
+            "label": "nh_r1_plot",
+            "data": {
+                "rid": "mll.nh_r1_plot",
+                "description": "nh_r1_plot",
+                "isLeaf": true
+            }
+        }, {
+            "label": "nh_r3",
+            "data": {
+                "rid": "mll.nh_r3",
+                "description": "nh_r3",
+                "isLeaf": true
+            }
+        }, {
+            "label": "nh_r3_plot",
+            "data": {
+                "rid": "mll.nh_r3_plot",
+                "description": "nh_r3_plot",
+                "isLeaf": true
+            }
+        }, {
+            "label": "nh_r8_day",
+            "data": {
+                "rid": "mll.nh_r8_day",
+                "description": "nh_r8_day",
+                "isLeaf": true
+            }
+        }, {
+            "label": "nh_r8_plot_day",
+            "data": {
+                "rid": "mll.nh_r8_plot_day",
+                "description": "nh_r8_plot_day",
+                "isLeaf": true
+            }
+        }, {
+            "label": "nh_sum_r8",
+            "data": {
+                "rid": "mll.nh_sum_r8",
+                "description": "nh_sum_r8",
+                "isLeaf": true
+            }
+        }, {
+            "label": "nh_sum_r8_plot",
+            "data": {
+                "rid": "mll.nh_sum_r8_plot",
+                "description": "nh_sum_r8_plot",
+                "isLeaf": true
+            }
+        }, {
+            "label": "nh_tavg",
+            "data": {
+                "rid": "mll.nh_tavg",
+                "description": "nh_tavg",
+                "isLeaf": true
+            }
+        }, {
+            "label": "nh_tavg_plot",
+            "data": {
+                "rid": "mll.nh_tavg_plot",
+                "description": "nh_tavg_plot",
+                "isLeaf": true
+            }
+        }, {
+            "label": "nh_wind_max_day",
+            "data": {
+                "rid": "mll.nh_wind_max_day",
+                "description": "nh_wind_max_day",
+                "isLeaf": true
+            }
+        }, {
+            "label": "typhoon",
+            "data": {
+                "rid": "mll.typhoon",
+                "description": "typhoon",
+                "isLeaf": true
+            }
+        }]
+    }]
+}

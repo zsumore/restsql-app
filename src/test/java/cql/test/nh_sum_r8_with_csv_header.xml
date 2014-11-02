@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rs:sqlResource xmlns:rs="http://restsql.org/schema">
+    <description>
+        <![CDATA[
+查询南海区日雨量统计数据，用于ncl画图。
+自动站点范围：(s.longitude between 112.5 and 113.5) ，(s.latitude between 22.5 and 23.5 )
+---------------------------------------------------------------------------------
+注意：
+含有group by的例子最好使用<test></test>增加查询条件，缩小查询范围，从而减少元数据查询时间,
+本范例在<test></test>中增加(datetime between '2014-05-01' and '2014-05-31')条件，用于减少查询范围
+--------------------------------------------------------------------------------
+使用范例：
+[1.查询2014年4月合雨量]:http://10.151.96.18/restsql/rest/res/pretty/mll.nh_sum_r8?_filter=datetime+DURING+2014-04-01T00:00:00/2014-04-30T00:00:00
+
+--------------------------------------------------------------------------------
+备注:
+"G6853":"广三高速松岗收费站":站点没有经纬度
+]]>
+    </description>
+    <test>
+        <![CDATA[
+SELECT  station_id , s.name sn, s.longitude lon, s.latitude lat, sum(r8) sum_r8 FROM 
+v_aws_day left join dict.v_station_cn s on s.id=station_id
+	WHERE (s.longitude between 112.5 and 113.5) 
+	AND (s.latitude between 22.5 and 23.5 )
+	AND r8 is not null
+	AND (datetime between '2014-04-01' and '2014-04-30')
+And s.type = 'A'
+And s.id not in ('G6853','G2186','G3152','G3256','G3157','G3249','G1088')
+group by station_id,sn,lon,lat
+]]>
+    </test>
+    <query>
+        <![CDATA[
+SELECT  station_id , s.name sn, s.longitude lon, s.latitude lat, sum(r8) sum_r8 FROM 
+        v_aws_day left join dict.v_station_cn s on s.id=station_id
+WHERE (s.longitude between 112.5 and 113.5) 
+	AND (s.latitude between 22.5 and 23.5 )
+	AND r8 is not null
+    AND s.type = 'A'
+    AND s.id not in ('G6853','G2186','G3152','G3256','G3157','G3249','G1088')
+group by station_id,sn,lon,lat
+]]>
+    </query>
+    <metadata>
+        <database default="meteo" />
+        <table name="v_aws_day" role="Parent" />
+        <table name="dict.v_station_cn" role="ParentExtension" />
+    </metadata>
+    <validatedAttribute name="lon" type="Numeric" format="0.00000" />
+    <validatedAttribute name="lat" type="Numeric" format="0.00000" />
+    <validatedAttribute name="sum_r8" type="Numeric" format="0.0" />
+    <restConfig>
+        <httpResponse cacheControl="no-cache, no-transform" accessControl="http://10.151.96.18" />
+    </restConfig>
+</rs:sqlResource>

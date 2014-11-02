@@ -1,0 +1,58 @@
+{
+	"treedata": [{
+		"label": "Animal",
+		"children": [{
+			"label": "Dog",
+			"data": {
+				"description": "man's best friend",
+				"resource_id":"meteo.v_awsday"
+			}
+		}, {
+			"label": "Dog",
+			"data": {
+				"description": "man's best friend"
+			}
+		}, {
+			"label": "Dog",
+			"data": {
+				"description": "man's best friend"
+			}
+		}]
+	}, {
+		"label": "Boy",
+		"children": [{
+			"label": "Dog",
+			"data": {
+				"description": "man's best friend"
+			}
+		}, {
+			"label": "Dog",
+			"data": {
+				"description": "man's best friend"
+			}
+		}, {
+			"label": "Dog",
+			"data": {
+				"description": "man's best friend"
+			}
+		}]
+	}, {
+		"label": "Girl",
+		"children": [{
+			"label": "Dog",
+			"data": {
+				"description": "man's best friend"
+			}
+		}, {
+			"label": "Dog",
+			"data": {
+				"description": "man's best friend"
+			}
+		}, {
+			"label": "Dog",
+			"data": {
+				"description": "man's best friend"
+			}
+		}]
+	}]
+}

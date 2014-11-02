@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html lang="zh-cn" ng-app="restUI" class="no-js">
+<!--<![endif]-->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Restful气象数据共享平台</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/app.css" />
+    <script src="bower_components/html5-boilerplate/js/vendor/modernizr-2.6.2.min.js"></script>
+    <link rel="stylesheet" href="bower_components/html5-boilerplate/css/normalize.css">
+    <link rel="stylesheet" href="bower_components/html5-boilerplate/css/main.css">
+    <!-- In production use:<script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>-->
+    <script src="bower_components/angular/angular.min.js"></script>
+    <script src="bower_components/angular-route/angular-route.min.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/services.js"></script>
+    <script src="js/controllers.js"></script>
+    <script src="js/filters.js"></script>
+    <script src="js/directives.js"></script>
+    <!-- angular-bootstrap-->
+    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+    <script src="bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
+    <link href="bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+    <!-- angular-ui-codemirror-->
+    <script src="bower_components/ace-builds/src-min-noconflict/ace.js"></script>
+    <script src="bower_components/angular-ui-ace/ui-ace.min.js"></script>
+    <!-- angular-bootstrap-nav-tree-->
+    <script src="components/angular-bootstrap-nav-tree/dist/abn_tree_directive.js"></script>
+    <link href="components/angular-bootstrap-nav-tree/dist/abn_tree.css" rel="stylesheet">
+</head>
+
+<body ng-controller="AbnTestController">
+    <!-- fixed nav -->
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">气象数据共享平台</a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="druid/sql.html" target="_blank">监控</a>
+                    </li>
+                    <li><a href="http://10.151.96.18:3131" target="_blank">编辑</a>
+                    </li>
+                    <li><a href="doc/readme.htm" target="_blank">帮助</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid mq-full-height">
+        <div class="row mq-full-height">
+            <!-- left bar tree item -->
+            <div class="col-md-2 sidebar mq-full-height">
+                <div class="btn-toolbar" role="toolbar" style="margin-bottom:5px;">
+                    <button type="button" ng-click="resource_tree.expand_all()" class="btn btn-sm btn-success">展开</button>
+                    <button type="button" ng-click="resource_tree.collapse_all()" class="btn btn-sm btn-info">折叠</button>
+                    <!-- Split button -->
+                    <div class="btn-group  pull-right" dropdown>
+                        <button type="button" ng-click="fetch_tree()" class="btn btn-sm btn-warning">刷新</button>
+                        <button type="button" class="btn btn-sm btn-warning dropdown-toggle">
+                            <span class="caret"></span>
+                            <span class="sr-only">Split button!</span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>
+                                <a href="#" ng-click="fetch_tree()">
+                                    <span class="glyphicon glyphicon-repeat" style="margin-right: 5px;"></span>刷新列表</a>
+                            </li>
+                            <li>
+                                <a href="#" ng-click="refresh_and_clean()">
+                                    <span class="glyphicon glyphicon-refresh" style="margin-right: 5px;"></span>刷新并清空</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <abn-tree tree-data="tree_data" tree-control="resource_tree" expand-level="1" on-select="tree_handler(branch)"></abn-tree>
+                <div>&nbsp;</div>
+            </div>
+            <!--main content -->
+            <div class="col-md-10 main">
+                <accordion close-others="false">
+                    
+                    <accordion-group is-open="accordion_group_status.two.open">
+                        <accordion-heading>
+                            {{accordion_group_status.two.heading}} <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down':accordion_group_status.two.open, 'glyphicon-chevron-right': !accordion_group_status.two.open}"></i>
+                        </accordion-heading>
+                        <form role="form">
+                            <div class="form-group">
+                                <div>
+                                    <input type="text" class="form-control" id="linkFilter" placeholder="拼接结果" ng-model="splice.query" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="inputOrderby" class="control-label">Orderby:</label>
+                                        <div>
+                                            <input type="text" ng-change="splice_query()" class="form-control" id="inputOrderby" ng-model="splice.orderby" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="inputLimit" class="control-label">Limit:</label>
+                                        <div>
+                                            <input type="text" ng-change="splice_query()" class="form-control" id="inputLimit" ng-model="splice.limit" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="inputOffset" class="control-label">Offset:</label>
+                                        <div>
+                                            <input type="text" ng-change="splice_query()" class="form-control" id="inputOffset" ng-model="splice.offset" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="inputVisible" class="control-label">Visible:</label>
+                                        <div>
+                                            <input type="text" ng-change="splice_query()" class="form-control" id="inputOrderby" ng-model="splice.visible" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div>
+                                    <input type="text" ng-change="splice_query()" class="form-control" id="inputFilter" placeholder="Filter" ng-model="splice.filter" />
+                                </div>
+                            </div>
+                        </form>
+                    </accordion-group>
+                    <accordion-group is-open="accordion_group_status.one.open">
+                        <accordion-heading>
+                            {{accordion_group_status.one.heading}}<i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down':accordion_group_status.one.open, 'glyphicon-chevron-right': !accordion_group_status.one.open}"></i>
+                        </accordion-heading>
+                        <div class="col-md-6">
+                            <div style="margin-top: 11px;margin-bottom: 2px;">
+                                <span class="glyphicon glyphicon-paperclip">{{resource_id}}</span>
+                                <a href="rest/res/metadata/{{resource_id}}" target="_blank" class="pull-right" style="margin-right: 5px;">
+                                    <span class="glyphicon glyphicon-link" style="margin-right: 5px;"></span>元数据</a>
+                                <a href="#" ng-click="reload_item()" class="pull-right" style="margin-right: 10px;">
+                                    <span class="glyphicon glyphicon-retweet" style="margin-right: 5px;"></span>重载</a>
+                            </div>
+
+                            <div class="form-control" style="height:350px;font-size:14px;" ng-model="resource_editor_model" ui-ace="resourceOptions" readonly="true"></div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <div class="btn-toolbar" role="toolbar" style="margin-bottom:2px;">
+                                <div class="btn-group">
+                                    <label class="btn btn-sm btn-primary" ng-change="output_change(radioOutputModel)" ng-model="radioOutputModel" btn-radio="'json'">JSON</label>
+                                    <label class="btn btn-sm btn-primary" ng-change="output_change(radioOutputModel)" ng-model="radioOutputModel" btn-radio="'xml'">XML</label>
+                                    <label class="btn btn-sm btn-primary" ng-change="output_change(radioOutputModel)" ng-model="radioOutputModel" btn-radio="'csv'">CSV</label>
+                                </div>
+                                <div class="btn-group">
+                                    <label class="btn btn-sm btn-success" ng-change="format_change(radioFormatModel)" ng-model="radioFormatModel" btn-radio="'format'">格式化</label>
+                                    <label class="btn btn-sm btn-success" ng-change="format_change(radioFormatModel)" ng-model="radioFormatModel" btn-radio="'default'">默认值</label>
+                                </div>
+                                <button type="button" ng-click="query()" class="btn btn-sm btn-danger pull-right">执行</button>
+                                <button type="button" ng-click="splice_query()" class="btn btn-sm btn-info pull-right">拼接</button>
+                            </div>
+                            <!--<textarea id="textareaResult"  class="form-control"  rows="8"></textarea>-->
+                            <div class="form-control ace_editor" style="height: 350px;font-size:14px;" ui-ace="resultOptions"></div>
+                        </div>
+                    </accordion-group>
+                    <accordion-group is-open="accordion_group_status.three.open">
+                        <accordion-heading>
+                            {{accordion_group_status.three.heading}} <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down':accordion_group_status.three.open, 'glyphicon-chevron-right': !accordion_group_status.three.open}"></i>
+                        </accordion-heading>
+                        <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+                    </accordion-group>
+                </accordion>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

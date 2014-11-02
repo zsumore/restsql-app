@@ -1,0 +1,378 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><style>html { font-size: 100%; overflow-y: scroll; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
+
+body{
+  color:#444;
+  font-family:Georgia, Palatino, 'Palatino Linotype', Times, 'Times New Roman',
+              "Hiragino Sans GB", "STXihei", "微软雅黑", serif;
+  font-size:12px;
+  line-height:1.5em;
+  background:#fefefe;
+  width: 45em;
+  margin: 10px auto;
+  padding: 1em;
+  outline: 1300px solid #FAFAFA;
+}
+
+a{ color: #0645ad; text-decoration:none;}
+a:visited{ color: #0b0080; }
+a:hover{ color: #06e; }
+a:active{ color:#faa700; }
+a:focus{ outline: thin dotted; }
+a:hover, a:active{ outline: 0; }
+
+span.backtick {
+  border:1px solid #EAEAEA;
+  border-radius:3px;
+  background:#F8F8F8;
+  padding:0 3px 0 3px;
+}
+
+::-moz-selection{background:rgba(255,255,0,0.3);color:#000}
+::selection{background:rgba(255,255,0,0.3);color:#000}
+
+a::-moz-selection{background:rgba(255,255,0,0.3);color:#0645ad}
+a::selection{background:rgba(255,255,0,0.3);color:#0645ad}
+
+p{
+margin:1em 0;
+}
+
+img{
+max-width:100%;
+}
+
+h1,h2,h3,h4,h5,h6{
+font-weight:normal;
+color:#111;
+line-height:1em;
+}
+h4,h5,h6{ font-weight: bold; }
+h1{ font-size:2.5em; }
+h2{ font-size:2em; border-bottom:1px solid silver; padding-bottom: 5px; }
+h3{ font-size:1.5em; }
+h4{ font-size:1.2em; }
+h5{ font-size:1em; }
+h6{ font-size:0.9em; }
+
+blockquote{
+color:#666666;
+margin:0;
+padding-left: 3em;
+border-left: 0.5em #EEE solid;
+}
+hr { display: block; height: 2px; border: 0; border-top: 1px solid #aaa;border-bottom: 1px solid #eee; margin: 1em 0; padding: 0; }
+
+
+pre , code, kbd, samp { 
+  color: #000; 
+  font-family: monospace; 
+  font-size: 0.88em; 
+  border-radius:3px;
+  background-color: #F8F8F8;
+  border: 1px solid #CCC; 
+}
+pre { white-space: pre; white-space: pre-wrap; word-wrap: break-word; padding: 5px 12px;}
+pre code { border: 0px !important; padding: 0;}
+code { padding: 0 3px 0 3px; }
+
+b, strong { font-weight: bold; }
+
+dfn { font-style: italic; }
+
+ins { background: #ff9; color: #000; text-decoration: none; }
+
+mark { background: #ff0; color: #000; font-style: italic; font-weight: bold; }
+
+sub, sup { font-size: 75%; line-height: 0; position: relative; vertical-align: baseline; }
+sup { top: -0.5em; }
+sub { bottom: -0.25em; }
+
+ul, ol { margin: 1em 0; padding: 0 0 0 2em; }
+li p:last-child { margin:0 }
+dd { margin: 0 0 0 2em; }
+
+img { border: 0; -ms-interpolation-mode: bicubic; vertical-align: middle; }
+
+table { border-collapse: collapse; border-spacing: 0; }
+td { vertical-align: top; }
+
+@media only screen and (min-width: 480px) {
+body{font-size:14px;}
+}
+
+@media only screen and (min-width: 768px) {
+body{font-size:16px;}
+}
+
+@media print {
+  * { background: transparent !important; color: black !important; filter:none !important; -ms-filter: none !important; }
+  body{font-size:12pt; max-width:100%; outline:none;}
+  a, a:visited { text-decoration: underline; }
+  hr { height: 1px; border:0; border-bottom:1px solid black; }
+  a[href]:after { content: " (" attr(href) ")"; }
+  abbr[title]:after { content: " (" attr(title) ")"; }
+  .ir a:after, a[href^="javascript:"]:after, a[href^="#"]:after { content: ""; }
+  pre, blockquote { border: 1px solid #999; padding-right: 1em; page-break-inside: avoid; }
+  tr, img { page-break-inside: avoid; }
+  img { max-width: 100% !important; }
+  @page :left { margin: 15mm 20mm 15mm 10mm; }
+  @page :right { margin: 15mm 10mm 15mm 20mm; }
+  p, h2, h3 { orphans: 3; widows: 3; }
+  h2, h3 { page-break-after: avoid; }
+}
+</style><title>README</title></head><body><h1 id="restful数据共享平台-使用说明">RESTFUL数据共享平台-----使用说明</h1>
+<h3 id="简介">简介</h3>
+<blockquote>
+<p>本应用是基于HTTP协议的轻量级的数据访问层，支持MySQL和PostgreSQL，只实现HTTP <strong>GET</strong>方法，本文假设读者已具备基本SQL知识。</p>
+</blockquote>
+<h6 id="特性">特性</h6>
+<ol>
+<li>结合Java和HTTP API技术的一个SQL生成器</li>
+<li>使用一个简单的RESTful HTTP API 把数据库数据序列化生成json、xml和csv</li>
+<li>支持关系数据库表的一对一，一对多和多对多关系</li>
+<li>灵活、简单，只需会SQL即可发布自定义数据接口</li>
+</ol>
+<hr />
+<h3 id="资源-resource">资源:Resource</h3>
+<p>例子：<strong>mll.nh_sum_r8</strong>,Resource xml中不要包含虚线部分</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;rs:sqlResource xmlns:rs=&quot;http://restsql.org/schema&quot;&gt; ------------------------------------------1:sqlResource
+&lt;description&gt;-----------------------------------------------------------------------------------2:description
+&lt;![CDATA[
+查询南海区日雨量统计数据，用于ncl画图。
+自动站点范围：(s.longitude between 112.5 and 113.5) ，(s.latitude between 22.5 and 23.5 )
+---------------------------------------------------------------------------------
+注意：
+含有group by的例子最好使用&lt;test&gt;&lt;/test&gt;增加查询条件，缩小查询范围，从而减少元数据查询时间,
+本范例在&lt;test&gt;&lt;/test&gt;中增加(datetime between '2014-05-01' and '2014-05-31')条件，用于减少查询范围
+--------------------------------------------------------------------------------
+使用范例：
+[1.查询2014年4月合雨量]:http://10.151.96.18/restsql/rest/res/pretty/mll.nh_sum_r8?_filter=datetime+DURING+2014-04-01T00:00:00Z/2014-04-30T00:00:00Z&amp;_output=csv
+]]&gt;
+&lt;/description&gt;
+&lt;test&gt;------------------------------------------------------------------------------------------3:test
+&lt;![CDATA[
+SELECT  station_id sid, s.name sn, s.longitude lon, s.latitude lat, sum(r8) sum_r8 ,count(r8) count_r8 FROM 
+v_aws_day left join dict.v_station_cn s on s.id=station_id
+    WHERE (s.longitude between 112.5 and 113.5) 
+    AND (s.latitude between 22.5 and 23.5 )
+    AND r8 is not null
+    AND (datetime between '2014-04-01' and '2014-04-30')
+And s.type = 'A'
+And s.id not in ('G2186','G3152','G3256','G3157','G3249','G1088')
+group by sid,sn,lon,lat
+]]&gt;
+&lt;/test&gt;
+&lt;query&gt;------------------------------------------------------------------------------------------4:query
+&lt;![CDATA[
+SELECT  station_id sid, s.name sn, s.longitude lon, s.latitude lat, sum(r8) sum_r8 ,count(r8) count_r8 FROM 
+        v_aws_day left join dict.v_station_cn s on s.id=station_id
+WHERE (s.longitude between 112.5 and 113.5) 
+    AND (s.latitude between 22.5 and 23.5 )
+    AND r8 is not null
+    AND s.type = 'A'
+    AND s.id not in ('G2186','G3152','G3256','G3157','G3249','G1088')
+group by sid,sn,lon,lat
+]]&gt;
+&lt;/query&gt;
+&lt;metadata&gt;---------------------------------------------------------------------------------------5:metadata
+&lt;database default=&quot;meteo&quot;/&gt;----------------------------------------------------------------------6:database
+&lt;table name=&quot;v_aws_day&quot; role=&quot;Parent&quot;/&gt;----------------------------------------------------------7:table
+&lt;table name=&quot;dict.v_station_cn&quot; role=&quot;ParentExtension&quot; /&gt;
+&lt;/metadata&gt;
+&lt;validatedAttribute name=&quot;lon&quot; type=&quot;Numeric&quot;  format=&quot;0.0000&quot; /&gt;------------------------8:validateAttribute
+&lt;validatedAttribute name=&quot;lat&quot; type=&quot;Numeric&quot;  format=&quot;0.0000&quot; /&gt;
+&lt;validatedAttribute name=&quot;sum_r8&quot; type=&quot;Numeric&quot;  format=&quot;0.0&quot; /&gt;
+&lt;/rs:sqlResource&gt;
+</code></pre>
+
+<h6 id="说明">说明</h6>
+<blockquote>
+<p>1:<strong>sqlResource</strong>  XML Root Element 格式固定</p>
+</blockquote>
+<pre><code>&lt;rs:sqlResource xmlns:rs=&quot;http://restsql.org/schema&quot;&gt; 
+</code></pre>
+
+<blockquote>
+<p>2:<strong>description</strong>  非必需 出现次数：0或1;    用于说明本资源如何使用</p>
+<p>3:<strong>test</strong>  非必需 出现次数：0或1;   用于生成元数据，当<strong>test</strong>存在，使用<strong>test</strong>生成元数据，否则使用<strong>query</strong>;<br />
+      <strong>元数据SQL</strong> = test 或 query的值 + "Limit 1 Offset 0" ;<br />
+      <strong>元数据</strong> 为上述SQL执行结果的列的元数据：metadata；<br />
+      当SQL语句包含<strong>group by</strong>时最好使用<strong>test</strong>增加查询条件，缩小查询范围，从而减少元数据查询时间</p>
+<p>4:<strong>query</strong> 必需 出现次数：1;  结构必需与<strong>test</strong>一致，只是相对减少部分过滤条件;<br />
+      SQL语句构造使用<strong>query</strong>生成</p>
+</blockquote>
+<pre><code>&lt;query&gt;
+&lt;![CDATA[
+SELECT  station_id sid, s.name sn, s.longitude lon, s.latitude lat, sum(r8) sum_r8 ,count(r8) count_r8 FROM 
+        v_aws_day left join dict.v_station_cn s on s.id=station_id
+WHERE (s.longitude between 112.5 and 113.5) 
+    AND (s.latitude between 22.5 and 23.5 )
+    AND r8 is not null
+    AND s.type = 'A'
+    AND s.id not in ('G2186','G3152','G3256','G3157','G3249','G1088')
+group by sid,sn,lon,lat
+]]&gt;
+&lt;/query&gt;
+</code></pre>
+
+<blockquote>
+<p>5:<strong>metadata</strong>  必需 出现次数：1;   数据表的元数据</p>
+<p>6:<strong>database</strong>  必需 出现次数：1;  数据库名称</p>
+<p>7:<strong>table</strong> 必需 出现次数：1或多次;   数据库表<br />
+      <strong>name</strong> 表名；<strong>role</strong>可为:<strong>Parent,ParentExtension,Child,ChildExtension,Join</strong><br />
+      <strong>role</strong>=<strong>Parent</strong>的表必需存在;<strong>Parent,ParentExtension</strong>为1对1关系;<strong>Parent,Child</strong>为1对多关系;<strong>Join</strong>用于多对多</p>
+</blockquote>
+<pre><code>&lt;metadata&gt;
+    &lt;database default=&quot;meteo&quot;/&gt;
+    &lt;table name=&quot;v_aws_day&quot; role=&quot;Parent&quot;/&gt;
+    &lt;table name=&quot;dict.v_station_cn&quot; role=&quot;ParentExtension&quot; /&gt;
+&lt;/metadata&gt;
+</code></pre>
+
+<blockquote>
+<p>8:<strong>validateAttribute</strong> 非必需 出现次数：0或1或多次;    用于格式化数据输出<br />
+      <strong>name</strong>对应列名；<strong>type</strong>可为：<strong>Numeric,String,Datetime</strong><br />
+      <strong>format</strong> pattern;日期数据datetime格式化后类型为String，非格式化日期数据类型为Long;更多请查看:<br />
+      <a href="http://download.oracle.com/technetwork/java/javase/6/docs/zh/api/java/text/DecimalFormat.html">java.text.DecimalFormat</a>
+      <a href="http://download.oracle.com/technetwork/java/javase/6/docs/zh/api/java/text/SimpleDateFormat.html">java.text.SimpleDateFormat</a></p>
+</blockquote>
+<pre><code>&lt;validatedAttribute name=&quot;lon&quot; type=&quot;Numeric&quot;  format=&quot;0.0000&quot; /&gt;
+&lt;validatedAttribute name=&quot;lat&quot; type=&quot;Numeric&quot;  format=&quot;0.0000&quot; /&gt;
+&lt;validatedAttribute name=&quot;sum_r8&quot; type=&quot;Numeric&quot;  format=&quot;0.0&quot; /&gt;
+</code></pre>
+
+<h6 id="定义资源resource备注">定义资源Resource备注</h6>
+<blockquote>
+<p><strong>description,test,query,metadata,validateAttribute</strong>出现的次序是固定的<br />
+      <strong>query</strong>中的SQL关键字<strong>WHERE</strong>和<strong>GROUP BY</strong>必需全为大写或全为小写，如<strong>Where</strong>,<strong>Group By</strong>为错误写法，可能会导致不可知错误<br />
+      <strong>test</strong>和<strong>query</strong>中不要包含SQL关键字<strong>ORDER BY</strong>,<strong>LIMIT</strong>,<strong>OFFSET</strong> <br />
+      定义资源Resource更详细资料可查看：<a href="file://D:\git\angular-rest\app\doc/SqlResource.xsd">SqlResource Schema</a>,这需要一点xml的知识</p>
+</blockquote>
+<hr />
+<h3 id="表角色-table-role">表角色:Table Role</h3>
+<p>如果你的表结构很简单，本段内容可以略过。</p>
+<p>在定义查询中的每个表必需在元数据<strong>metadata</strong>中声明其角色<strong>Role</strong>，不同的表角色<strong>Role</strong>其数据请求处理是有区别的。下图描述了一个命名为<strong>ActorFilm</strong>的多对多<strong>many-to-many</strong>结构的表的物理数据模型：<br />
+<img alt="" src="file://D:\git\angular-rest\app\doc/img/film_actor.png" />
+<img alt="" src="file://D:\git\angular-rest\app\doc/img/table_role.png" /></p>
+<ol>
+<li>对于一个扁平结构的资源SQL Resource，一个<strong>Parent</strong>角色表必须声明；</li>
+<li>对于一个一对多 one-to-many 的分级资源SQL Resource，一个<strong>Parent</strong>角色表,一个<strong>Child</strong>角色表都必须声明；</li>
+<li>对于一个多对多 many-to-many 的分级资源SQL Resource，一个<strong>Parent</strong>角色表,一个<strong>Join</strong>角色表,一个<strong>Child</strong>角色表都必须声明；</li>
+<li><strong>Parent, Child and Join</strong>角色表只能定义一次，<strong>ParentExtensions and ChildExtensions</strong>角色表不是必需的，其定义可以为多个</li>
+</ol>
+<h6 id="资源定义-sql-resource-definition">资源定义 SQL Resource Definition</h6>
+<p>这是一个命名为FilmRating的1对1结构资源，文件名为FilmRating.xml</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;rs:sqlResource xmlns:rs=&quot;http://restsql.org/schema&quot;&gt;
+   &lt;query&gt;
+      select film.film_id, title, release_year,language_id, 
+             rental_duration,rental_rate,replacement_cost, film_rating_id, stars
+      from film, film_rating
+      where film.film_id = film_rating.film_id
+   &lt;/query&gt;
+   &lt;metadata&gt;
+      &lt;database default=&quot;sakila&quot; /&gt;
+      &lt;table name=&quot;film&quot; role=&quot;Parent&quot; /&gt;
+      &lt;table name=&quot;film_rating&quot; role=&quot;ParentExtension&quot; /&gt;
+   &lt;/metadata&gt;
+&lt;/rs:sqlResource&gt;
+</code></pre>
+
+<p>这是一个命名为LanguageFilm的1对多结构资源，文件名为LanguageFilm.xml</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;rs:sqlResource xmlns:rs=&quot;http://restsql.org/schema&quot;&gt;
+   &lt;query&gt;
+      select language.language_id, language.name, film_id, title, release_year
+      from language
+      left outer join film on film.language_id = language.language_id
+   &lt;/query&gt;
+   &lt;metadata&gt;
+      &lt;database default=&quot;sakila&quot; /&gt;
+      &lt;table name=&quot;language&quot; role=&quot;Parent&quot; /&gt;
+      &lt;table name=&quot;film&quot; role=&quot;Child&quot; /&gt;
+   &lt;/metadata&gt;
+&lt;/rs:sqlResource&gt;
+</code></pre>
+
+<p>这是一个命名为ActorFilm的多对多结构资源，文件名为ActorFilm.xml</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;rs:sqlResource xmlns:rs=&quot;http://restsql.org/schema&quot;&gt;
+   &lt;query&gt;
+      select actor.actor_id, first_name, last_name, actor_rating.stars,
+             film.film_id, title, release_year, film_rating.stars
+      from actor
+      left outer join actor_rating on actor.actor_id = actor_film.actor_id
+      left outer join film_actor on film_actor.actor_id = actor.actor_id
+      left outer join film on film_actor.film_id = film.film_id
+      left outer join film_rating on film.film_id = film_rating.film_id
+   &lt;/query&gt;
+   &lt;metadata&gt;
+      &lt;database default=&quot;sakila&quot; /&gt;
+      &lt;table name=&quot;actor&quot; role=&quot;Parent&quot; /&gt;
+      &lt;table name=&quot;actor_rating&quot; role=&quot;ParentExtension&quot; /&gt;
+      &lt;table name=&quot;film&quot; role=&quot;Child&quot; /&gt;
+      &lt;table name=&quot;film_rating&quot; role=&quot;ChildExtension&quot; /&gt;
+      &lt;table name=&quot;film_actor&quot; role=&quot;Join&quot; /&gt;
+   &lt;/metadata&gt;
+&lt;/rs:sqlResource&gt;
+</code></pre>
+
+<hr />
+<h3 id="接口-http-api">接口 HTTP API</h3>
+<table>
+<thead>
+<tr>
+<th>HTTP接口</th>
+<th>类别</th>
+<th>备注</th>
+<th>参数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>rest/res/{resName}</td>
+<td>资源SQL Resource</td>
+<td>用于查询数据，默认输出，数据体积小</td>
+<td>可带参数</td>
+</tr>
+<tr>
+<td>rest/res/pretty/{resName}</td>
+<td>资源SQL Resource</td>
+<td>用于查询数据，格式化输出，便于查看</td>
+<td>可带参数</td>
+</tr>
+<tr>
+<td>rest/res/file/{resName}</td>
+<td>资源SQL Resource</td>
+<td>用于获取资源定义xml文件</td>
+<td>无参数</td>
+</tr>
+<tr>
+<td>rest/res/metadata/{resName}</td>
+<td>元数据 Metadata</td>
+<td>用于获取<strong>select</strong>的列的元数据定义xml文件</td>
+<td>无参数</td>
+</tr>
+<tr>
+<td>rest/res/clean/resource</td>
+<td>功能性接口</td>
+<td>用于清除Resource缓存</td>
+<td>无参数</td>
+</tr>
+<tr>
+<td>rest/res/clean/result</td>
+<td>功能性接口</td>
+<td>用于清除查询结果缓存</td>
+<td>无参数</td>
+</tr>
+<tr>
+<td>rest/res/load/resourceTree</td>
+<td>功能性接口</td>
+<td>用于查询资源定义树列表</td>
+<td>无参数</td>
+</tr>
+</tbody>
+</table>
+<h6 id="资源sql-resource-http接口">资源SQL Resource HTTP接口</h6>
+<p>查询数据使用HTTP GET方法按名称访问，接口：rest/res/{resName}或rest/res/pretty/{resName}。</p></body></html>
