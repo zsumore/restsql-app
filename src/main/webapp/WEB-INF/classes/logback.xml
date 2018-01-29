@@ -18,12 +18,12 @@
 
 	<appender name="ROLLING"
 		class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<file>/home/nhweather/java/tomcat/logs/sqlrestlog.txt</file>
+		<file>/home/java/tomcat9/logs/sqlrestlog.txt</file>
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
 			<!-- rollover daily -->
-			<fileNamePattern>/home/nhweather/java/tomcat/logs/sqlrestlog-%d{yyyy-MM-dd_HH_mm}.%i.log
+			<fileNamePattern>/home/java/tomcat9/logs/sqlrestlog-%d{yyyy-MM-dd_HH_mm}.%i.log
 			</fileNamePattern>
-			<maxHistory>5</maxHistory>
+			<maxHistory>10</maxHistory>
 			<timeBasedFileNamingAndTriggeringPolicy
 				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
 				<!-- or whenever the file size reaches 100MB -->

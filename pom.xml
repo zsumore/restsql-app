@@ -8,30 +8,40 @@
 	<name>restful-app</name>
 	<url>http://maven.apache.org</url>
 	<properties>
-		<java.version>1.7</java.version>
-		<guava.version>18.0</guava.version>
-		<logback.version>1.1.2</logback.version>
-		<slf4j.version>1.7.7</slf4j.version>
-		<junit.version>4.11</junit.version>
-		<jackson2.version>2.4.3</jackson2.version>
+		<java.version>1.8</java.version>
+		<guava.version>23.6-jre</guava.version>
+		<logback.version>1.2.3</logback.version>
+		<slf4j.version>1.7.25</slf4j.version>
+		<junit.version>4.12</junit.version>
+		<jackson2.version>2.9.3</jackson2.version>
 		<woodstox.version>4.4.1</woodstox.version>
-		<spring.version>4.1.1.RELEASE</spring.version>
-		<druid.version>1.0.9</druid.version>
-		<geotools.version>12.0.1</geotools.version>
-		<validation-api.version>1.0.0.GA</validation-api.version>
-		<hibernate-validator.version>4.1.0.Final</hibernate-validator.version>
-		<postgresql.version>9.3-1101-jdbc41</postgresql.version>
+		<spring.version>5.0.2.RELEASE</spring.version>
+		<druid.version>1.1.6</druid.version>
+		<geotools.version>18.1</geotools.version>
+		<postgresql.version>42.1.4</postgresql.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<webappDirectory>${project.build.directory}/${project.build.finalName}</webappDirectory>
 	</properties>
 
 	<repositories>
 		<repository>
-			<id>repo2</id>
-			<name>repo2 repository</name>
-			<url>http://repo2.maven.org/maven2/</url>
+			<id>alimaven</id>
+			<name>aliyun maven</name>
+			<url>http://maven.aliyun.com/nexus/content/groups/public/</url>
 		</repository>
 
+
+
+		<repository>
+			<id>boundlessgeo</id>
+			<name>boundlessgeo</name>
+			<url>http://repo.boundlessgeo.com/main/</url>
+		</repository>
+		<repository>
+			<id>osgeo</id>
+			<name>Open Source Geospatial Foundation Repository</name>
+			<url>http://download.osgeo.org/webdav/geotools/</url>
+		</repository>
 		<repository>
 			<id>spring-maven-release</id>
 			<name>Spring Maven Release Repository</name>
@@ -39,25 +49,22 @@
 		</repository>
 
 		<repository>
-			<id>osgeo</id>
-			<name>Open Source Geospatial Foundation Repository</name>
-			<url>http://download.osgeo.org/webdav/geotools/</url>
+			<id>repo2</id>
+			<name>repo2 repository</name>
+			<url>http://repo2.maven.org/maven2/</url>
 		</repository>
 
-		<repository>
-			<id>version99</id>
-			<!-- highly available repository serving empty artifacts -->
-			<url>http://version99.qos.ch/</url>
-		</repository>
 	</repositories>
 	<dependencies>
 		<!-- Servlet -->
+		<!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
 		<dependency>
-			<groupId>org.apache.geronimo.specs</groupId>
-			<artifactId>geronimo-servlet_3.0_spec</artifactId>
-			<version>1.0</version>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>4.0.0</version>
 			<scope>provided</scope>
 		</dependency>
+
 		<!-- Spring dependencies -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -143,11 +150,7 @@
 			<artifactId>logback-classic</artifactId>
 			<version>${logback.version}</version>
 		</dependency>
-		<dependency>
-			<groupId>org.logback-extensions</groupId>
-			<artifactId>logback-ext-spring</artifactId>
-			<version>0.1.2</version>
-		</dependency>
+		
 		<!-- jackson2 -->
 		<!-- the core, which includes Streaming API, shared low-level abstractions 
 			(but NOT data-binding) -->
@@ -199,7 +202,7 @@
 					<artifactId>commons-collections</artifactId>
 					<groupId>commons-collections</groupId>
 				</exclusion>
-				
+
 			</exclusions>
 		</dependency>
 		<dependency>
@@ -211,7 +214,7 @@
 					<artifactId>commons-collections</artifactId>
 					<groupId>commons-collections</groupId>
 				</exclusion>
-				
+
 			</exclusions>
 		</dependency>
 		<dependency>
@@ -219,7 +222,7 @@
 			<artifactId>gt-jdbc-postgis</artifactId>
 			<version>${geotools.version}</version>
 			<exclusions>
-				
+
 				<exclusion>
 					<groupId>postgresql</groupId>
 					<artifactId>postgresql</artifactId>
@@ -230,8 +233,8 @@
 			<groupId>org.geotools.jdbc</groupId>
 			<artifactId>gt-jdbc-mysql</artifactId>
 			<version>${geotools.version}</version>
-			
 		</dependency>
+
 		<!-- other -->
 		<dependency>
 			<groupId>com.google.guava</groupId>
@@ -257,25 +260,15 @@
 			<version>${junit.version}</version>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit-dep</artifactId>
-			<version>${junit.version}</version>
-			<scope>test</scope>
-		</dependency>
+
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
 			<version>${spring.version}</version>
 			<scope>test</scope>
 		</dependency>
-		<!-- apache commons -->
-		<dependency>
-			<groupId>commons-logging</groupId>
-			<artifactId>commons-logging</artifactId>
-			<version>99-empty</version>
-		</dependency>
-
+		<!-- apache commons <dependency> <groupId>commons-logging</groupId> <artifactId>commons-logging</artifactId> 
+			<version>99-empty</version> </dependency> -->
 		<!-- <dependency> <groupId>commons-io</groupId> <artifactId>commons-io</artifactId> 
 			<version>2.4</version> </dependency> <dependency> <groupId>commons-collections</groupId> 
 			<artifactId>commons-collections</artifactId> <version>3.2.1</version> </dependency> -->
@@ -286,13 +279,13 @@
 		<plugins>
 			<plugin>
 				<groupId>org.apache.tomcat.maven</groupId>
-				<artifactId>tomcat7-maven-plugin</artifactId>
-				<version>2.0</version>
+				<artifactId>tomcat8-maven-plugin</artifactId>
+				<version>3.0-r1756463</version>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.1</version>
+				<version>3.7.0</version>
 				<configuration>
 					<source>${java.version}</source>
 					<target>${java.version}</target>
@@ -302,7 +295,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-war-plugin</artifactId>
-				<version>2.3</version>
+				<version>3.2.0</version>
 				<configuration>
 					<webappDirectory>${webappDirectory}</webappDirectory>
 				</configuration>
@@ -310,7 +303,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-resources-plugin</artifactId>
-				<version>2.6</version>
+				<version>3.0.2</version>
 				<configuration>
 					<encoding>${project.build.sourceEncoding}</encoding>
 				</configuration>
