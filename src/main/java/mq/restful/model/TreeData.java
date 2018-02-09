@@ -10,7 +10,6 @@ public class TreeData {
 	private String description;
 	@JsonProperty("rid")
 	private String rid;
-
 	@JsonProperty("isLeaf")
 	private Boolean isLeaf;
 

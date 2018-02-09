@@ -37,7 +37,7 @@ public class SqlResourceFactoryImpl implements SqlResourceFactory {
 
 	private Config config;
 
-	private DataSource dataSource;
+	private Map<String, DataSource> dataSourceMap;
 
 	Logger logger = LoggerFactory.getLogger("SqlResourceFactory");
 
@@ -51,14 +51,13 @@ public class SqlResourceFactoryImpl implements SqlResourceFactory {
 	}
 
 	@Autowired
-	public void setDataSource(DataSource dataSource) {
-		this.dataSource = dataSource;
+	public void setDataSource(Map<String, DataSource> dataSourceMap) {
+		this.dataSourceMap = dataSourceMap;
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public SqlResource getSqlResource(String resName)
-			throws SqlResourceFactoryException, SqlResourceException {
+	public SqlResource getSqlResource(String resName) throws SqlResourceFactoryException, SqlResourceException {
 		SqlResource sqlResource = sqlResources.get(resName);
 		if (sqlResource == null) {
 			final InputStream inputStream = getInputStream(resName);
@@ -70,19 +69,18 @@ public class SqlResourceFactoryImpl implements SqlResourceFactory {
 				final SqlResourceDefinition definition = ((JAXBElement<SqlResourceDefinition>) unmarshaller
 						.unmarshal(inputStream)).getValue();
 
-				SqlResourceMetaData sqlResourceMetaData=SqlUtils.getDBDialectByName(config.getProperty(Config.KEY_DATABASE_TYPE)).getSqlResourceMetaData();
+				SqlResourceMetaData sqlResourceMetaData = SqlUtils
+						.getDBDialectByName(config.getProperty(Config.KEY_DATABASE_TYPE)).getSqlResourceMetaData();
 
-				sqlResourceMetaData.init(resName, definition, dataSource);
+				sqlResourceMetaData.init(resName, definition,
+						dataSourceMap.get(definition.getMetadata().getDatabase().getDataSourceName()));
 
-				sqlResource = new SqlResourceImpl(resName, definition,
-						sqlResourceMetaData, this);
+				sqlResource = new SqlResourceImpl(resName, definition, sqlResourceMetaData, this);
 				sqlResources.put(resName, sqlResource);
 			} catch (final JAXBException exception) {
 
-				StringBuffer bufferE = new StringBuffer(
-						"Error unmarshalling SQL Resource ")
-						.append(getSqlResourceFileName(resName)).append(" -- ")
-						.append(exception.getMessage());
+				StringBuffer bufferE = new StringBuffer("Error unmarshalling SQL Resource ")
+						.append(getSqlResourceFileName(resName)).append(" -- ").append(exception.getMessage());
 				logger.error(bufferE.toString());
 				throw new SqlResourceFactoryException(bufferE.toString());
 			} catch (DataAccessException e) {
@@ -101,28 +99,25 @@ public class SqlResourceFactoryImpl implements SqlResourceFactory {
 	}
 
 	@Override
-	public InputStream getSqlResourceDefinition(String resName)
-			throws SqlResourceFactoryException {
+	public InputStream getSqlResourceDefinition(String resName) throws SqlResourceFactoryException {
 		return getInputStream(resName);
 	}
 
 	@Override
-	public List<String> getSqlResourceNames()
-			throws SqlResourceFactoryException {
+	public List<String> getSqlResourceNames() throws SqlResourceFactoryException {
 		return getSqlResourceNames(getSqlResourcesDir());
 	}
 
 	// Package methods
 
 	/**
-	 * Returns available SQL Resource names using the provided directory. Used
-	 * by testing infrastructure.
+	 * Returns available SQL Resource names using the provided directory. Used by
+	 * testing infrastructure.
 	 * 
 	 * @throws SqlResourceFactoryException
 	 *             if the provided directory does not exist
 	 */
-	List<String> getSqlResourceNames(final String dirName)
-			throws SqlResourceFactoryException {
+	List<String> getSqlResourceNames(final String dirName) throws SqlResourceFactoryException {
 		final List<String> resNames = new ArrayList<String>();
 		getSqlResourceNames(resNames, dirName, "");
 		if (resNames.size() == 0) {
@@ -137,8 +132,7 @@ public class SqlResourceFactoryImpl implements SqlResourceFactory {
 	}
 
 	@Override
-	public void reloadSqlResource(String resName)
-			throws SqlResourceFactoryException, SqlResourceException {
+	public void reloadSqlResource(String resName) throws SqlResourceFactoryException, SqlResourceException {
 		sqlResources.remove(resName);
 		getSqlResource(resName);
 
@@ -154,8 +148,7 @@ public class SqlResourceFactoryImpl implements SqlResourceFactory {
 	/** Opens input stream to resource name. Callers must close stream. */
 	@SuppressWarnings("resource")
 	@Override
-	public InputStream getInputStream(final String resName)
-			throws SqlResourceFactoryException {
+	public InputStream getInputStream(final String resName) throws SqlResourceFactoryException {
 		final String fileName = getSqlResourceFileName(resName);
 		InputStream inputStream = null;
 		try {
@@ -164,8 +157,7 @@ public class SqlResourceFactoryImpl implements SqlResourceFactory {
 			inputStream = this.getClass().getResourceAsStream(fileName);
 		}
 		if (inputStream == null) {
-			String em = new StringBuffer().append("SQL Resource ")
-					.append(resName).append(" not found - expected ")
+			String em = new StringBuffer().append("SQL Resource ").append(resName).append(" not found - expected ")
 					.append(fileName).toString();
 			logger.error(em);
 			throw new SqlResourceFactoryException(em);
@@ -191,8 +183,7 @@ public class SqlResourceFactoryImpl implements SqlResourceFactory {
 	 * @throws SqlResourceFactoryException
 	 *             if the provided directory does not exist
 	 */
-	private void getSqlResourceNames(final List<String> resNames,
-			final String dirName, final String packageName)
+	private void getSqlResourceNames(final List<String> resNames, final String dirName, final String packageName)
 			throws SqlResourceFactoryException {
 		final File dir = new File(dirName);
 		if (dir.exists()) {
@@ -201,23 +192,19 @@ public class SqlResourceFactoryImpl implements SqlResourceFactory {
 				if (file.isFile()) {
 					final int extIndex = file.getName().indexOf(".xml");
 					if (extIndex > 0) {
-						resNames.add(packageName
-								+ file.getName().substring(0, extIndex));
+						resNames.add(packageName + file.getName().substring(0, extIndex));
 					}
 				}
 			}
 			for (final File subDir : dir.listFiles()) {
 				if (subDir.isDirectory()) {
-					final String subPackageName = packageName.length() == 0 ? subDir
-							.getName() + "."
+					final String subPackageName = packageName.length() == 0 ? subDir.getName() + "."
 							: packageName + subDir.getName() + ".";
-					getSqlResourceNames(resNames, subDir.getAbsolutePath(),
-							subPackageName);
+					getSqlResourceNames(resNames, subDir.getAbsolutePath(), subPackageName);
 				}
 			}
 		} else {
-			final String message = "SQL Resources directory " + dirName
-					+ " does not exist";
+			final String message = "SQL Resources directory " + dirName + " does not exist";
 			logger.error(message);
 			throw new SqlResourceFactoryException(message);
 		}
@@ -229,8 +216,7 @@ public class SqlResourceFactoryImpl implements SqlResourceFactory {
 	}
 
 	@Override
-	public void reloadAllSqlResource() throws SqlResourceFactoryException,
-			SqlResourceException {
+	public void reloadAllSqlResource() throws SqlResourceFactoryException, SqlResourceException {
 		sqlResources.clear();
 
 		List<String> resNames = getSqlResourceNames();

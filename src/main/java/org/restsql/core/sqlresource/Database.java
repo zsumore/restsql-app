@@ -5,7 +5,6 @@
 // Generated on: 2012.10.07 at 09:30:00 AM EDT 
 //
 
-
 package org.restsql.core.sqlresource;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -13,11 +12,13 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlType;
 
-
 /**
- * <p>Java class for Database complex type.
+ * <p>
+ * Java class for Database complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType name="Database">
@@ -35,31 +36,39 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "Database")
 public class Database {
 
-    @XmlAttribute(name = "default", required = true)
-    protected String _default;
+	@XmlAttribute(name = "default", required = true)
+	protected String _default;
 
-    /**
-     * Gets the value of the default property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getDefault() {
-        return _default;
-    }
+	@XmlAttribute(name = "dataSourceName", required = true)
+	protected String dataSourceName;
 
-    /**
-     * Sets the value of the default property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setDefault(String value) {
-        this._default = value;
-    }
+	public String getDataSourceName() {
+		return dataSourceName;
+	}
+
+	public void setDataSourceName(String dataSourceName) {
+		this.dataSourceName = dataSourceName;
+	}
+
+	/**
+	 * Gets the value of the default property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getDefault() {
+		return _default;
+	}
+
+	/**
+	 * Sets the value of the default property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setDefault(String value) {
+		this._default = value;
+	}
 
 }
